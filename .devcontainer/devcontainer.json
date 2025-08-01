@@ -15,6 +15,6 @@
 			}
 		}
 	},
-	"postCreateCommand": "anchor --version && solana --version",
+	"postCreateCommand": "ls",
 	"remoteUser": "vscode"
 }
