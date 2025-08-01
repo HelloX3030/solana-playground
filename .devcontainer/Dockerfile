@@ -25,7 +25,3 @@ RUN cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
 
 # Set working directory
 WORKDIR /workspace
-
-# Create default user
-RUN useradd -ms /bin/bash vscode
-USER vscode
