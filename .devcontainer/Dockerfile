@@ -14,13 +14,14 @@ RUN apt-get update && apt-get install -y \
 	gnupg \
 	&& rm -rf /var/lib/apt/lists/*
 
-# Optional: Install Node.js (if still needed later)
-# RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-#     apt-get install -y nodejs && \
-#     node -v && npm -v
-
 # Install Solana CLI
 RUN curl --proto '=https' --tlsv1.2 -sSfL https://solana-install.solana.workers.dev | bash
+
+# Add Cargo to PATH for later Dockerfile steps
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Install Anchor CLI
+RUN cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
 
 # Set working directory
 WORKDIR /workspace
