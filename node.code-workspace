@@ -9,12 +9,5 @@
 		{
 			"path": "."
 		}
-	],
-	"settings": {
-		"files.exclude": {
-			"programs": true,
-			"target": true,
-			"node_modules/.cache": true
-		}
-	}
+	]
 }
