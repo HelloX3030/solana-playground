@@ -23,8 +23,5 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # Install Anchor CLI
 RUN cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
 
-RUN solana config set --url http://127.0.0.1:8899
-RUN solana-keygen new -o /root/.config/solana/id.json --no-passphrase
-
 # Set working directory
 WORKDIR /workspace
