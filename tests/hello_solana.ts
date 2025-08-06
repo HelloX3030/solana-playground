@@ -2,6 +2,7 @@ import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { HelloSolana } from "../target/types/hello_solana";
 import { assert } from "chai";
+import BN from "bn.js";
 
 // describe("hello_solana", () => {
 //   // Configure the client to use the local cluster.
@@ -67,6 +68,8 @@ describe("hello_solana", () => {
       baseAccount.publicKey
     );
     console.log("Owner:", account.owner, "amount:", account.amount, "self greets:", account.selfGreets);
-    // assert.equal(account.greeting, "Hello Solana!");
+	assert(account.owner.equals(provider.wallet.publicKey))
+    assert(account.amount.eq(new BN(0)));
+	assert(account.selfGreets.eq(new BN(0)));
 	});
 });
