@@ -38,3 +38,37 @@ pub struct Update<'info> {
 pub struct GreetingAccount {
     pub greeting: String,
 }
+
+// ---------------------------------------------------------------------------------------------- //
+// use anchor_lang::prelude::*;
+
+// declare_id!("13xv7grzU9AXt7S4dH51ZuyKwmgduTbtM6WBKk3B4FBq");
+
+// #[program]
+// pub mod hello_solana {
+//     use super::*;
+
+//     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+//         let base_account = &mut ctx.accounts.base_account;
+//         base_account.owner = ctx.accounts.user.key();
+//         base_account.amount = 0;
+//         base_account.self_greets = 0;
+//         Ok(())
+//     }
+// }
+
+// #[derive(Accounts)]
+// pub struct Initialize<'info> {
+//     #[account(init, payer = user, space = 8 + 64)]
+//     pub base_account: Account<'info, GreetingUser>,
+//     #[account(mut)]
+//     pub user: Signer<'info>,
+//     pub system_program: Program<'info, System>,
+// }
+
+// #[account]
+// pub struct GreetingUser {
+//     pub owner: Pubkey,
+//     pub amount: u64,
+//     pub self_greets: u64,
+// }

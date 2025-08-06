@@ -18,7 +18,6 @@ describe("hello_solana", () => {
       .accounts({
         baseAccount: baseAccount.publicKey,
         user: provider.wallet.publicKey,
-        systemProgram: anchor.web3.SystemProgram.programId,
       })
       .signers([baseAccount])
       .rpc();
