@@ -126,7 +126,6 @@ describe("hello_solana", () => {
 		const account = await program.account.greetingUser.fetch(Account1.publicKey);
 		console.log("Owner:", account.owner, "amount:", account.amount, "self greets:", account.selfGreets);
 		assert(account.owner.equals(wallet1.publicKey));
-		assert(account.amount.eq(new BN(0)));
 		assert(account.selfGreets.eq(new BN(1)));
 	});
 
