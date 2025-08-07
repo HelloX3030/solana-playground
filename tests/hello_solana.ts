@@ -52,28 +52,52 @@ describe("hello_solana", () => {
 
 	const program = anchor.workspace.HelloSolana as Program<HelloSolana>;
 
-	let Account1 = anchor.web3.Keypair.generate();
-	let Account2 = anchor.web3.Keypair.generate();
+	let Account1: anchor.web3.Keypair;
+	let Account2: anchor.web3.Keypair;
+
+
+	before(async () => {
+		// Generate Keys
+		Account1 = anchor.web3.Keypair.generate();
+		Account2 = anchor.web3.Keypair.generate();
+
+		// Account 1 setup
+		await program.methods
+		.initialize()
+		.accounts({
+			baseAccount: Account1.publicKey,
+			user: provider.wallet.publicKey,
+		})
+		.signers([Account1])
+		.rpc();
+
+		// Account 2 setup
+		await program.methods
+		.initialize()
+		.accounts({
+			baseAccount: Account2.publicKey,
+			user: provider.wallet.publicKey,
+		})
+		.signers([Account2])
+		.rpc();
+	})
 
 	it ("<Test Init>", async () => {
+		let testAccount = anchor.web3.Keypair.generate();
 		await program.methods
-      .initialize()
-      .accounts({
-        baseAccount: Account1.publicKey,
-        user: provider.wallet.publicKey,
-      })
-      .signers([Account1])
-      .rpc();
+		.initialize()
+		.accounts({
+			baseAccount: testAccount.publicKey,
+			user: provider.wallet.publicKey,
+		})
+		.signers([testAccount])
+		.rpc();
 
-		const account = await program.account.greetingUser.fetch(Account1.publicKey);
+		const account = await program.account.greetingUser.fetch(testAccount.publicKey);
 		console.log("Owner:", account.owner, "amount:", account.amount, "self greets:", account.selfGreets);
 		assert(account.owner.equals(provider.wallet.publicKey))
 		assert(account.amount.eq(new BN(0)));
 		assert(account.selfGreets.eq(new BN(0)));
-
-		await program.methods.initialize()
-			.accounts({baseAccount: Account2.publicKey, user: provider.wallet.publicKey}).
-			signers([Account2]).rpc();
 	});
 
 	it ("<Test Self Greet>", async () => {
