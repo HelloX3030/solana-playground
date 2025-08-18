@@ -1,5 +1,6 @@
 [package]
 name = "hello_solana"
+rust-version = "1.86"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
