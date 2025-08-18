@@ -1,27 +1,28 @@
-FROM debian:bookworm
+FROM ubuntu:22.04
 
-# Install system dependencies
+# system dependencies
 RUN apt-get update && apt-get install -y \
-	curl \
-	git \
-	build-essential \
-	pkg-config \
-	libssl-dev \
-	libudev-dev \
-	python3 \
-	python3-pip \
-	ca-certificates \
-	gnupg \
-	&& rm -rf /var/lib/apt/lists/*
+    curl \
+    git \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    libudev-dev \
+    python3 \
+    python3-pip \
+    ca-certificates \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Solana CLI
-RUN curl --proto '=https' --tlsv1.2 -sSfL https://solana-install.solana.workers.dev | bash
-
-# Add Cargo to PATH for later Dockerfile steps
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain 1.79.0
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Install Anchor CLI
-RUN cargo install --git https://github.com/coral-xyz/anchor anchor-cli --locked
+# Install Solana CLI
+RUN sh -c "$(curl -sSfL https://release.anza.xyz/v1.18.12/install)"
+ENV PATH="/root/.local/share/solana/install/active_release/bin:${PATH}"
 
-# Set working directory
+# Install Anchor CLI
+RUN cargo install --git https://github.com/coral-xyz/anchor --tag v0.30.1 anchor-cli --locked
+
 WORKDIR /workspace
